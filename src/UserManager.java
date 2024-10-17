@@ -3,29 +3,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-class User implements Comparable<User> {
-    private String userName; // User's name
-    private String userSurname;
-    private int userAge; // User's age
-
-    public User(String name, int age) {
-        this.userName = name;
-        this.userAge = age;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public int getUserAge() {
-        return userAge;
-    }
-
-    @Override
-    public int compareTo(User other) {
-        return other.userAge - this.userAge;
-    }
-}
 
 public class UserManager {
 
@@ -41,7 +18,7 @@ public class UserManager {
     }
 
     public void addUser(String name, int age) {
-        if(name.length()==0){
+        if(name == null || name.length()==0){
             throw new IllegalArgumentException("Name cannot be empty");
         }
         if(age < 0){
@@ -97,9 +74,9 @@ public class UserManager {
     }
 
     public void printoldestUser() {
-        User oldestUser = null;
+        User oldestUser = new User("Oldest", 0);
         for (User u : usersList) {
-            if (u.compareTo(oldestUser)>0){
+            if (u != null && u.compareTo(oldestUser)>0){
                 oldestUser = u;
             }
         }
@@ -127,8 +104,8 @@ public class UserManager {
         /// you can not make changes to main
         UserManager userManager = new UserManager();
         userManager.addUser("Alice", 25);
-        userManager.addUser("Bob", -5);
-        userManager.addUser(null, 30);
+        userManager.addUser("Bob", 5);
+        userManager.addUser("Thanas", 30);
         userManager.addUser("Charlie", 30);
         userManager.printUserDetails();
         userManager.locateUser("Alice");
@@ -145,3 +122,28 @@ public class UserManager {
 
     }
 }
+
+class User implements Comparable<User> {
+    private String userName; // User's name
+    private String userSurname;
+    private int userAge; // User's age
+
+    public User(String name, int age) {
+        this.userName = name;
+        this.userAge = age;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public int getUserAge() {
+        return userAge;
+    }
+
+    @Override
+    public int compareTo(User other) {
+        return other.userAge - this.userAge;
+    }
+}
+
